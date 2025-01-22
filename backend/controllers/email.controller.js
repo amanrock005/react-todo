@@ -1,19 +1,16 @@
 import cloudinary from "../lib/cloudinary.js";
 import EmailTemplate from "../models/email.model.js";
 
-export const getEmailLayout = async (req, res) => {
-  const htmlTemplate = `
-    <html>
-    <head></head>
-    <body>
-    <h1>{{Title}}</h1>
-    <p>{{Content}}</p>
-    <img src="{{ImageUrl}}"/>
-    </body>
-    </html>
-    `;
-  res.send(htmlTemplate);
+export const getEmailLayouts = async (req, res) => {
+  try {
+    const templates = await EmailTemplate.find(); // Fetch all templates
+    res.status(200).json(templates); // Return templates as JSON
+  } catch (error) {
+    console.error("Error fetching templates:", error);
+    res.status(500).send({ error: "Failed to fetch templates" });
+  }
 };
+
 export const uploadImage = async (req, res) => {
   try {
     const result = await cloudinary.uploader.upload(req.file.path);

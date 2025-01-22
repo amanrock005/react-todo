@@ -1,7 +1,7 @@
 import express from "express";
 import multer from "multer";
 import {
-  getEmailLayout,
+  getEmailLayouts,
   uploadImage,
   uploadEmailConfig,
 } from "../controllers/email.controller.js";
@@ -9,7 +9,7 @@ import {
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 
-router.get("/getEmailLayout", getEmailLayout);
+router.get("/getEmailLayout", getEmailLayouts);
 router.post("/uploadImage", upload.single("image"), uploadImage);
 router.post("/uploadEmailConfig", uploadEmailConfig);
 
